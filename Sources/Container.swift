@@ -178,7 +178,7 @@ extension Container: _Resolver {
 
     private func getRegistrations() -> [ServiceKey: ServiceEntryProtocol] {
         var registrations = parent?.getRegistrations() ?? [:]
-        services.forEach { key, value in registrations[key] = value }
+        services.forEach { registrations[$0.key] = $0.value }
         return registrations
     }
 
@@ -262,7 +262,7 @@ extension Container: Resolver {
 extension Container: CustomStringConvertible {
     public var description: String {
         return "["
-            + services.map { "\n    { \($1.describeWithKey($0)) }" }.sorted().joined(separator: ",")
+            + services.map { "\n    { \($0.value.describeWithKey($0.key)) }" }.sorted().joined(separator: ",")
         + "\n]"
     }
 }
